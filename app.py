@@ -5,6 +5,7 @@ import random
 from telebot import types
  
 bot = telebot.TeleBot(config.TOKEN)
+
  
 @bot.message_handler(commands=['start'])
 def welcome(message):
@@ -47,9 +48,4 @@ def callback_inline(call):
     except Exception as e:
         print(repr(e))
  
-def telegramErrorSender(chat_id, message): 
-    bot.send_message(chat_id, f'ERROR \n {message}')
-
-
-
 bot.polling(none_stop=True)

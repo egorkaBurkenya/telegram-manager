@@ -1,4 +1,3 @@
-import app
+from sender import telegramErrorSender
 
-
-app.telegramErrorSender('365913711', 'работает?')
+telegramErrorSender('ERROR', '365913711', '123123123123123')
