@@ -32,7 +32,11 @@ def lalala(message):
             
             bot.send_message(message.chat.id, message.chat.id, reply_markup=markup)
 
+        elif message.text == 'Как добавить в меня файл ?':
+            bot.send_message(message.chat.id, 'Для того что бы использовать меня, имортируйте в свой файл: os, файл sender.py \n\nimport os\nimport sender as s\n\nДля того что бы разобраться как использовать комманды читайте README.md файл на GitHub\n\n https://github.com/egorkaBurkenya/telegram-manager')
 
+        elif message.text == 'Режимы работы':
+            bot.send_message(message.chat.id, 'пока что доступен один режим работы')
         else:
             bot.send_message(message.chat.id, 'Я не знаю что ответить 😢')
            
@@ -44,7 +48,7 @@ def callback_inline(call):
             if call.data == 'what':
                 bot.send_message(call.message.chat.id, 'id нужен вам для использования функций в вашем коде, для передачи ошибки именно на ваш канал')
             elif call.data == 'thanks':
-                pass
+                bot.send_message(call.message.chat.id, 'цмок')
     except Exception as e:
         print(repr(e))
  

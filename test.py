@@ -1,3 +1,6 @@
-from sender import telegramErrorSender
+from sender import telegramSender
+import os
 
-telegramErrorSender('ERROR', '365913711', '123123123123123')
+fileName = os.path.basename(__file__)
+
+telegramSender(fileName ,'message vk_message', '365913711', 'error')
