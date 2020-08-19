@@ -4,7 +4,7 @@ import config
 
 bot = telebot.TeleBot(config.TOKEN)
 
-def telegramSender(fileName = "main.py", message_type = "error", chat_id = "", message = "message"): 
+def telegramSender(fileName = "main.py", message_type = "error", chat_id = config.ADMIN_CHAT_ID, message = "message"): 
     
     if message_type.lower() == 'error':
         bot.send_message(chat_id, f'{fileName} have some ERROR\n\n{message}')
