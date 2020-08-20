@@ -1,7 +1,9 @@
 import telebot
 import config
 import random
- 
+import json
+
+
 from telebot import types
  
 bot = telebot.TeleBot(config.TOKEN)
@@ -46,21 +48,48 @@ def lalala(message):
             bot.send_message(message.chat.id, 'выберите режим работы!\n\n#############\n\n функция находится в разработке', reply_markup=markup)
         
         elif message.text == 'all':
-            bot.send_message(message.chat.id, 'Готово! теперь все уведомления будут работать!')
-            #тут бот должен менять режим своей работы //FIXME:
-            config.OPERATING_MODE = 0
+            with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
+                data = json.load(fh)
+            if data["OPERATING_MODE"] == '0':
+                bot.send_message(message.chat.id, 'Уже включен данный режим') 
+            else: 
+                data["OPERATING_MODE"] = '0' 
+                with open('OPERATING_MODE.json', 'w', encoding='utf-8') as fh:
+                    fh.write(json.dumps(data, ensure_ascii=False))
+                bot.send_message(message.chat.id, 'Готово! теперь все уведомления будут работать!')
+        
         elif message.text == 'errors':
-            bot.send_message(message.chat.id, 'Готово! теперь только ошибки потревожат вас')
-            #тут бот должен менять режим своей работы //FIXME:
-            config.OPERATING_MODE = 1
+            with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
+                data = json.load(fh)
+            if data["OPERATING_MODE"] == '1':
+                bot.send_message(message.chat.id, 'Уже включен данный режим') 
+            else: 
+                data["OPERATING_MODE"] = '1' 
+                with open('OPERATING_MODE.json', 'w', encoding='utf-8') as fh:
+                    fh.write(json.dumps(data, ensure_ascii=False))
+                bot.send_message(message.chat.id, 'Готово! теперь только ошибки потревожат вас')
         elif message.text == 'message':
-            bot.send_message(message.chat.id, 'Готово! теперь только сообщения потревожат вас')
-            #тут бот должен менять режим своей работы //FIXME:
-            config.OPERATING_MODE = 2
+            with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
+                data = json.load(fh)
+            if data["OPERATING_MODE"] == '2':
+                bot.send_message(message.chat.id, 'Уже включен данный режим') 
+            else: 
+                data["OPERATING_MODE"] = '2' 
+                with open('OPERATING_MODE.json', 'w', encoding='utf-8') as fh:
+                    fh.write(json.dumps(data, ensure_ascii=False))
+                bot.send_message(message.chat.id, 'Готово! теперь только сообщения потревожат вас')
+            
         elif message.text == 'print':
-            bot.send_message(message.chat.id, 'Готово! теперь только print потревожит вас')
-            #тут бот должен менять режим своей работы //FIXME:
-            config.OPERATING_MODE = 3
+            with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
+                data = json.load(fh)
+            if data["OPERATING_MODE"] == '3':
+                bot.send_message(message.chat.id, 'Уже включен данный режим') 
+            else: 
+                data["OPERATING_MODE"] = '3' 
+                with open('OPERATING_MODE.json', 'w', encoding='utf-8') as fh:
+                    fh.write(json.dumps(data, ensure_ascii=False))
+                bot.send_message(message.chat.id, 'Готово! теперь только print потревожит вас')
+
 
         else:
             bot.send_message(message.chat.id, 'Я не знаю что ответить 😢')
