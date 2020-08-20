@@ -45,7 +45,7 @@ def lalala(message):
             item3 = types.KeyboardButton("message")
             item4 = types.KeyboardButton("print")
             markup.add(item1, item2, item3, item4)
-            bot.send_message(message.chat.id, 'выберите режим работы!\n\n#############\n\n функция находится в разработке', reply_markup=markup)
+            bot.send_message(message.chat.id, 'выберите режим работы!', reply_markup=markup)
         
         elif message.text == 'all':
             with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
