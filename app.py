@@ -1,7 +1,9 @@
 import telebot
 import config
 import random
- 
+import json
+
+
 from telebot import types
  
 bot = telebot.TeleBot(config.TOKEN)
@@ -36,10 +38,65 @@ def lalala(message):
             bot.send_message(message.chat.id, 'Для того что бы использовать меня, имортируйте в свой файл: os, файл sender.py \n\nimport os\nimport sender as s\n\nДля того что бы разобраться как использовать комманды читайте README.md файл на GitHub\n\n https://github.com/egorkaBurkenya/telegram-manager')
 
         elif message.text == 'Режимы работы':
-            bot.send_message(message.chat.id, 'пока что доступен один режим работы')
+           
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+            item1 = types.KeyboardButton("all")
+            item2 = types.KeyboardButton("errors")
+            item3 = types.KeyboardButton("message")
+            item4 = types.KeyboardButton("print")
+            markup.add(item1, item2, item3, item4)
+            bot.send_message(message.chat.id, 'выберите режим работы!', reply_markup=markup)
+        
+        elif message.text == 'all':
+            with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
+                data = json.load(fh)
+            if data["OPERATING_MODE"] == '0':
+                bot.send_message(message.chat.id, 'Уже включен данный режим') 
+            else: 
+                data["OPERATING_MODE"] = '0' 
+                with open('OPERATING_MODE.json', 'w', encoding='utf-8') as fh:
+                    fh.write(json.dumps(data, ensure_ascii=False))
+                bot.send_message(message.chat.id, 'Готово! теперь все уведомления будут работать!')
+        
+        elif message.text == 'errors':
+            with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
+                data = json.load(fh)
+            if data["OPERATING_MODE"] == '1':
+                bot.send_message(message.chat.id, 'Уже включен данный режим') 
+            else: 
+                data["OPERATING_MODE"] = '1' 
+                with open('OPERATING_MODE.json', 'w', encoding='utf-8') as fh:
+                    fh.write(json.dumps(data, ensure_ascii=False))
+                bot.send_message(message.chat.id, 'Готово! теперь только ошибки потревожат вас')
+        elif message.text == 'message':
+            with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
+                data = json.load(fh)
+            if data["OPERATING_MODE"] == '2':
+                bot.send_message(message.chat.id, 'Уже включен данный режим') 
+            else: 
+                data["OPERATING_MODE"] = '2' 
+                with open('OPERATING_MODE.json', 'w', encoding='utf-8') as fh:
+                    fh.write(json.dumps(data, ensure_ascii=False))
+                bot.send_message(message.chat.id, 'Готово! теперь только сообщения потревожат вас')
+            
+        elif message.text == 'print':
+            with open('OPERATING_MODE.json', 'r', encoding='utf-8') as fh: 
+                data = json.load(fh)
+            if data["OPERATING_MODE"] == '3':
+                bot.send_message(message.chat.id, 'Уже включен данный режим') 
+            else: 
+                data["OPERATING_MODE"] = '3' 
+                with open('OPERATING_MODE.json', 'w', encoding='utf-8') as fh:
+                    fh.write(json.dumps(data, ensure_ascii=False))
+                bot.send_message(message.chat.id, 'Готово! теперь только print потревожит вас')
+
+
         else:
             bot.send_message(message.chat.id, 'Я не знаю что ответить 😢')
-           
+
+
+
+
  
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
