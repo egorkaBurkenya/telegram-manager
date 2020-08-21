@@ -30,8 +30,7 @@ def commands(message):
  
     markup.add(item1, item2)
  
-    bot.send_message(message.chat.id, "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, твои личный менаджер кода!".format(message.from_user, bot.get_me()),
-        parse_mode='html', reply_markup=markup)
+    bot.send_message(message.chat.id, 'Commands ! ', reply_markup=markup)
  
 @bot.message_handler(content_types=['text'])
 def lalala(message):
